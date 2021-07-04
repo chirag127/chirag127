@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @chirag127.
 - 👀 I’m interested in privacy solutions,cyber security,data protection.
 - 🌱 I’m currently learning Typescript.
-- 💞️ I’m looking to contribute on Adguard, Improved tube.
+- 💞️ I’m looking to contribute on any kind of repository related to youtube or privacy.
 
 <!---
 chirag127/chirag127 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
