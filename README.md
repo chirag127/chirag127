@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 👋 Hi, I’m @chirag127.
+- 👋 I’m @chirag127.
 - 👀 I’m interested in privacy solutions,cyber security,data protection.
 - 🌱 I’m currently learning Typescript.
 - 💞️ I’m looking to contribute on repositories related to youtube or privacy.
