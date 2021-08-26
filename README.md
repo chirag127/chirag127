@@ -3,7 +3,7 @@
 - 👋 I’m @chirag127.
 - 👀 I’m interested in privacy solutions,cyber security,data protection.
 - 🌱 I’m currently learning Typescript.
-- 💞️ I’m looking to contribute on repositories related to youtube or privacy.
+- 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
 ---
 <h2 align="center">More insight of my GitHub account</h2>
 <h3 align="center">:trophy::star: Trophies :star::trophy:</h3>
