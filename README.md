@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 👋 I’m @chirag127.
+- 👋 I’m Chirag Singhal.
 - 👀 I’m interested in cyber security, artificial intelligence.
 - 🌱 I’m currently learning Python.
 - 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
