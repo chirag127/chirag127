@@ -2,7 +2,7 @@
 
 - 👋 I’m Chirag Singhal.
 - 👀 I’m interested in cyber security, artificial intelligence.
-- 🌱 I’m currently learning Python and applying in RKGITWE Recruitment.
+- 🌱 I’m currently learning Type script and applying in RKGITWE Recruitment.
 - 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
 ---
 <h2 align="center">More insight of my GitHub account</h2>
