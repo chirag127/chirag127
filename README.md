@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 👋 I’m Chirag Singhal.
+- 👋 I’m chirag127.
 - 👀 I’m interested in Machine learning,Blockchain.
 - 🌱 I’m currently learning Type script,Django.
 - 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
