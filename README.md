@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 👋 I’m a software developer.
+- 👋 I’m a student. 
 - 👀 I’m interested in Artificial intelligence, Natural language processing.
 - 🌱 I’m currently learning Type script,Django.
 - 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
