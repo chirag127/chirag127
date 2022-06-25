@@ -16,7 +16,7 @@
 ---
 
 <p align="center">
-<a href="https://github.com/chirag127"><img src="https://github-readme-stats.vercel.app/api?username=chirag127&show_icons=true&count_private=true&hide=stars&include_all_commits=true"></a>
+<a href="https://github.com/chirag127"><img src="https://github-readme-stats.vercel.app/api?username=chirag127&show_icons=true&count_private=true&include_all_commits=true"></a>
 </p>
 
 <!---
