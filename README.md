@@ -1,9 +1,9 @@
 ### Hi there 👋
 
-- 👋 I’m a student. 
+- 👋 I’m a student currently in 6th semester of B.Tech in Computer Science and Engineering.
 - 👀 I’m interested in Artificial intelligence, Natural language processing.
 - 🌱 I’m currently learning Type script,Django.
-- 💞️ I’m looking to contribute on repositories which are saving my time in anyway.
+- 💞️ I’m looking for intership in software development related positions.
 ---
 <h2 align="center">More insight of my GitHub account</h2>
 <h3 align="center">:trophy::star: Trophies :star::trophy:</h3>
