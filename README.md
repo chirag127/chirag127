@@ -2,7 +2,7 @@
 
 - 👋 I’m a student currently in 6th semester of B.Tech in Computer Science and Engineering.
 - 👀 I’m interested in Artificial intelligence, Natural language processing.
-- 🌱 I’m currently learning Type script,Django.
+- 🌱 I’m currently improving my skills in the full stack devopment via the mern stack and the machine learning.
 - 💞️ I’m looking for intership in software development related positions.
 ---
 <h2 align="center">More insight of my GitHub account</h2>
