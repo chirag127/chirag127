@@ -1,7 +1,7 @@
 ### Hi there 👋
 
-- 👋 I’m a student currently in the 7th semester of B.Tech in Computer Science and Engineering.
-- 👀 I’m interested in Artificial intelligence, Natural language processing.
+- 👋 I’m a software developer at innercord.
+- 👀 I’m interested in Artificial intelligence, Natural language processing,low code.
 - 🌱 I’m currently improving my skills in the full stack devopment via the mern stack and the machine learning.
 - 💞️ I’m looking for intership in software development related positions.
 ---
