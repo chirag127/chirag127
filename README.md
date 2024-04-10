@@ -3,7 +3,7 @@
 - 👋 I’m a software developer at innercord.
 - 👀 I’m interested in Artificial intelligence, Natural language processing,low code.
 - 🌱 I’m currently improving my skills in the full stack devopment via the mern stack and the machine learning.
-- 💞️ I’m looking for intership in software development related positions.
+- 💞️ I’m looking for job in software development related positions.
 ---
 <h2 align="center">More insight of my GitHub account</h2>
 <h3 align="center">:trophy::star: Trophies :star::trophy:</h3>
