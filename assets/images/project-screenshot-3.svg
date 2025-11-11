@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="projGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  <rect x="50" y="50" width="700" height="500" rx="10" fill="url(#projGrad3)"/>
+  <rect x="100" y="100" width="600" height="80" rx="5" fill="white" opacity="0.3"/>
+  <rect x="100" y="200" width="180" height="280" rx="5" fill="white" opacity="0.3"/>
+  <rect x="310" y="200" width="180" height="280" rx="5" fill="white" opacity="0.3"/>
+  <rect x="520" y="200" width="180" height="280" rx="5" fill="white" opacity="0.3"/>
+  <text x="400" y="155" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">Project Screenshot 3</text>
+</svg>
