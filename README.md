@@ -1,8 +1,8 @@
 ### Hi there 👋
 
 - 👋 I'm a software developer at tcs.
-- 👀 I'm interested in Artificial intelligence, Natural language processing,low code.
-- 🌱 I'm currently improving my skills in the full stack devopment via the mean stack and the machine learning.
+- 👀 I'm interested in Artificial intelligence
+- 🌱 I'm currently improving my skills in the python and the machine learning.
 - 💞️ I'm looking for job in software development related positions.
 
 ---
