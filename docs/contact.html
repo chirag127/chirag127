@@ -1,0 +1,161 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact – Chirag Singhal</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Glassmorphism utilities -->
+  <style>
+    @layer utilities {
+      .glass {
+        @apply bg-white/30 backdrop-blur-lg border border-white/20 rounded-xl shadow-lg;
+      }
+    }
+  </style>
+
+  <!-- Favicon (fallback for both SVG & ICO) -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="alternate icon" href="../assets/favicon.ico">
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 text-gray-900 antialiased">
+
+  <!-- Header -->
+  <header class="py-6">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <h1 class="text-3xl font-bold text-indigo-800">Chirag Singhal</h1>
+      <nav>
+        <ul class="flex space-x-6 text-lg">
+          <li><a href="index.html" class="hover:text-indigo-600 transition">Home</a></li>
+          <li><a href="about.html" class="hover:text-indigo-600 transition">About</a></li>
+          <li><a href="contact.html" class="text-indigo-600 font-semibold">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <section class="max-w-3xl mx-auto glass p-8">
+      <h2 class="text-2xl font-semibold mb-6 text-indigo-700 text-center">Get in Touch</h2>
+
+      <p class="mb-6 text-center text-gray-700">
+        I'm always open to discussing new opportunities, collaborations, or just saying hello! Feel free
+        to drop me a line using any of the methods below.
+      </p>
+
+      <!-- Contact Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Email Card -->
+        <div class="flex items-center p-4 glass">
+          <svg class="w-6 h-6 mr-3 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 12H8m8 0l-4-4m4 4l-4 4"></path>
+          </svg>
+          <div>
+            <p class="font-medium text-indigo-800">Email</p>
+            <a href="mailto:chiragsinghal127@gmail.com"
+               class="text-sm text-gray-600 hover:underline">chiragsinghal127@gmail.com</a>
+          </div>
+        </div>
+
+        <!-- GitHub Card -->
+        <div class="flex items-center p-4 glass">
+          <svg class="w-6 h-6 mr-3 text-indigo-600 flex-shrink-0" fill="currentColor"
+               viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.018c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.464-1.11-1.464-.907-.62.069-.607.069-.607 1.003.07 1.531 1.032 1.531 1.032 .89 1.525 2.341 1.084 2.91.83 .09-.647 .35-1.084 .636-1.333-2.22-.253-4.555-1.112-4.555-4.945 0-1.093 .39-1.987 1.029-2.688-.103-.253-.447-1.27 .098-2.646 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.907-1.295 2.746-1.025 2.746-1.025 .546 1.376 .202 2.393 .1 2.646 .64 .701 1.028 1.595 1.028 2.688 0 3.842-2.339 4.688-4.566 4.936 .359 .31 .678 .923 .678 1.86 0 1.342-.012 2.424-.012 2.752 0 .268 .18 .58 .688 .482A10.018 10.018 0 0022 12.018C22 6.484 17.523 2 12 2z"
+                  clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <p class="font-medium text-indigo-800">GitHub</p>
+            <a href="https://github.com/chirag127"
+               class="text-sm text-gray-600 hover:underline" target="_blank"
+               rel="noopener noreferrer">github.com/chirag127</a>
+          </div>
+        </div>
+
+        <!-- LinkedIn Card -->
+        <div class="flex items-center p-4 glass">
+          <svg class="w-6 h-6 mr-3 text-indigo-600 flex-shrink-0" fill="currentColor"
+               viewBox="0 0 24 24">
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 
+                 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11.75 20h-3v-11h3v11zm-1.5-12.25c-.966 
+                 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 
+                 1.75 1.75-.784 1.75-1.75 1.75zm13.25 12.25h-3v-5.5c0-1.379-.028-3.152-1.923-3.152-1.923 
+                 0-2.219 1.5-2.219 3.046v5.606h-3v-11h2.88v1.5h.041c.401-.761 
+                 1.379-1.562 2.839-1.562 3.039 0 3.6 2 3.6 4.604v6.458z"/>
+          </svg>
+          <div>
+            <p class="font-medium text-indigo-800">LinkedIn</p>
+            <a href="https://linkedin.com/in/chirag-singhal1"
+               class="text-sm text-gray-600 hover:underline" target="_blank"
+               rel="noopener noreferrer">linkedin.com/in/chirag-singhal1</a>
+          </div>
+        </div>
+
+        <!-- Buy Me a Coffee Card -->
+        <div class="flex items-center p-4 glass">
+          <svg class="w-6 h-6 mr-3 text-indigo-600 flex-shrink-0" fill="currentColor"
+               viewBox="0 0 24 24">
+            <path d="M12 0C5.372 0 0 5.373 0 12c0 5.083 3.163 9.424 7.593 11.185
+                     -.105-.951-.2-2.408.042-3.447.218-.938 1.404-5.967 1.404-5.967
+                     s-.358-.718-.358-1.777c0-1.666.967-2.91 2.172-2.91
+                     1.024 0 1.519.768 1.519 1.688 0 1.028-.655 2.565-0.992 
+                     3.992-.283 1.199.602 2.176 1.782 2.176 2.14 0 
+                     3.787-2.255 3.787-5.511 0-2.877-2.069-4.889-5.025-4.889
+                     -3.423 0-5.438 2.567-5.438 5.228 0 1.036.397 2.147.894 
+                     2.754a.357.357 0 01.082.342c-.09.378-.285 1.199-.322 
+                     1.365-.05.218-.162.264-.376.16-1.401-.652-2.277-2.695-
+                     2.277-4.34 0-3.531 2.567-6.771 7.397-6.771 3.886 0 
+                     6.91 2.771 6.91 6.471 0 3.864-2.438 6.979-5.823 
+                     6.979-1.138 0-2.207-.59-2.572-1.285 0 0-.613 2.339-
+                     .724 2.755-.218.834-.81 1.877-1.207 2.511 
+                     0.917.284 1.887.438 2.896.438 6.628 0 12-5.373 
+                     12-12S18.628 0 12 0z"/>
+          </svg>
+          <div>
+            <p class="font-medium text-indigo-800">Buy Me a Coffee</p>
+            <a href="https://buymeacoffee.com/WhyIsWhen"
+               class="text-sm text-gray-600 hover:underline" target="_blank"
+               rel="noopener noreferrer">buymeacoffee.com/WhyIsWhen</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional simple contact form (non‑functional placeholder) -->
+      <div class="mt-10">
+        <h3 class="text-xl font-medium mb-4 text-indigo-700 text-center">Send a Quick Message</h3>
+        <form class="grid gap-4 max-w-xl mx-auto">
+          <input type="text" placeholder="Your Name"
+                 class="p-3 glass focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"/>
+          <input type="email" placeholder="Your Email"
+                 class="p-3 glass focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded"/>
+          <textarea rows="4" placeholder="Your Message"
+                    class="p-3 glass focus:outline-none focus:ring-2 focus:ring-indigo-300 rounded resize-none"></textarea>
+          <button type="submit"
+                  class="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
+            Send
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 bg-white/30 backdrop-blur-md text-center text-gray-600">
+    <p class="text-sm">
+      © 2026 Chirag Singhal | Designed by Chirag Singhal
+    </p>
+  </footer>
+
+</body>
+</html>
+```

@@ -1,0 +1,49 @@
+:root {
+  --bg-color: rgba(255, 255, 255, 0.15);
+  --blur: 10px;
+  --border-radius: 15px;
+  --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --primary: #4e54c8;
+  --secondary: #8f94fb;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  min-height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  background: var(--bg-color);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem;
+  width: 90%;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+a {
+  color: #fff;
+  text-decoration: underline;
+}
