@@ -1,15 +1,29 @@
-### Hi there 👋
+### Hi there, I'm Chirag Singhal 👋
 
-- 👋 I'm a software developer at tcs.
-- 👀 I'm interested in Artificial intelligence
-- 🌱 I'm currently improving my skills in the python and the machine learning.
-- 💞️ I'm looking for job in software development related positions.
+I am a **Software Engineer** at **TCS** based in **Bhubaneswar**, currently focused on bridging the gap between enterprise software and AI-driven automation.
+
+- 🔭 **I’m currently working on:** SAP CPQ implementations using IronPython and Knockout.js.
+- 🌱 **I’m currently learning:** Advanced Data Science & AI concepts for **GATE 2026 (DA Paper)**.
+- 👯 **I’m looking to collaborate on:** Java/Python backend development and AI automation projects.
+- 🛠 **Side Projects:**
+  - Building a network of **450+ static utility websites** hosted on Cloudflare Pages.
+  - Creating educational content for GATE aspirants (Data Science & AI).
+  - Developing "Joules API" for GitHub automation and visibility.
+- ⚡ **Interests:** Personal Finance (Value Investing), Automation/Scripting, and AI-assisted coding (Cursor/Perplexity).
 
 ---
 
 ## 🌐 Website
 
 Visit my portfolio website: **[https://chirag127.github.io/chirag127](https://chirag127.github.io/chirag127)**
+
+---
+
+## 💻 Tech Stack & Tools
+
+* **Languages:** Python, Java, JavaScript (Knockout.js), IronPython
+* **Domains:** Machine Learning, Web Development, Automation
+* **Tools:** VS Code, Cursor, OBS Studio (for content creation)
 
 ---
 
@@ -61,45 +75,3 @@ npx serve
 
 # Option 3: Using PHP
 php -S localhost:8000
-```
-
-Then open your browser to `http://localhost:8000`
-
-### Customization
-
-1. **Replace placeholder images:**
-   - Add your profile photo: `assets/images/profile-placeholder.svg`
-   - Add project screenshots: `assets/images/project-screenshot-*.svg`
-   - See [assets/README.md](assets/README.md) for optimization tips
-
-2. **Update content:**
-   - Edit `index.html` to customize your portfolio
-   - Update social links with your actual profiles
-   - Add your real project descriptions
-
-3. **Customize styling:**
-   - Modify the `<style>` section in `index.html`
-   - Change color scheme by updating gradient colors
-   - Adjust layout and responsive breakpoints
-
-### Deployment Configuration
-
-The deployment is configured via `.github/workflows/pages.yml` which:
-- Triggers on push to `main` branch
-- Deploys the entire repository to GitHub Pages
-- Supports manual workflow dispatch
-
----
-
-<h2 align="center">More insight of my GitHub account</h2>
-<h3 align="center">:trophy::star: Trophies :star::trophy:</h3>
-
-<p align="center">
-<a href="https://github.com/chirag127"><img src="https://github-profile-trophy.vercel.app/?username=chirag127" "></a>
-</p>
-
----
-
-<p align="center">
-<a href="https://github.com/chirag127"><img src="https://github-readme-stats.vercel.app/api?username=chirag127&show_icons=true&count_private=true&include_all_commits=true"></a>
-</p>
