@@ -1,29 +1,33 @@
 ### Hi there, I'm Chirag Singhal 👋
 
-I am a **Software Engineer** at **TCS** based in **Bhubaneswar**, currently focused on bridging the gap between enterprise software and AI-driven automation.
+I am a **Software Engineering Specialist** based in **Bhubaneswar**, specializing in AI-driven systems, LLM evaluations, and highly scalable distributed architectures. I am passionate about understanding model behavior, identifying edge cases, and building rigorous evaluation pipelines for state-of-the-art coding models.
 
-- 🔭 **I’m currently working on:** SAP CPQ implementations using IronPython and Knockout.js.
-- 🌱 **I’m currently learning:** Advanced Data Science & AI concepts for **GATE 2026 (DA Paper)**.
-- 👯 **I’m looking to collaborate on:** Java/Python backend development and AI automation projects.
-- 🛠 **Side Projects:**
-  - Building a network of **450+ static utility websites** hosted on Cloudflare Pages.
-  - Creating educational content for GATE aspirants (Data Science & AI).
-  - Developing "Joules API" for GitHub automation and visibility.
-- ⚡ **Interests:** Personal Finance (Value Investing), Automation/Scripting, and AI-assisted coding (Cursor/Perplexity).
+- 🔭 **I’m currently working on:** Architecting multi-agent workflows (NexusAI) and building robust benchmarking suites for LLM code-generation capabilities.
+- 🌱 **I’m currently learning:** Advanced techniques in model alignment, agentic orchestration (LangGraph), and high-performance vector retrieval.
+- 👯 **I’m looking to collaborate on:** Open-source AI benchmarking tools, distributed data curation pipelines, and complex systems architecture.
+- 🛠 **Key Engineering Projects:**
+  - **HumanEval Extended:** A custom benchmarking suite built to systematically evaluate early code-completion LLMs and map out critical failure modes.
+  - **NexusAI:** An agentic AI platform orchestrating autonomous LLM agents to solve complex coding tasks using LangGraph and Kubernetes.
+  - **Crawl4AI:** A distributed web crawler utilizing Redis task queues to curate high-quality real-world datasets for LLM training and RAG ingestion.
+  - **Oriz:** A production-grade platform routing dynamic user inputs across 10+ state-of-the-art LLM providers for behavioral analysis and cross-model benchmarking.
+- ⚡ **Interests:** AI System Design, Edge Cases in Machine Learning, Open-Source Intelligence, and automating the un-automatable.
 
 ---
 
-## 🌐 Website
+## 🌐 Portfolio & Links
 
-Visit my portfolio website: **[https://chirag127.github.io/chirag127](https://chirag127.github.io/chirag127)**
+Visit my portfolio to see my detailed engineering work: **[https://chirag127.github.io/chirag127](https://chirag127.github.io/chirag127)**
+Connect with me on LinkedIn: **[linkedin.com/in/chirag127](https://linkedin.com/in/chirag127)**
 
 ---
 
 ## 💻 Tech Stack & Tools
 
-* **Languages:** Python, Java, JavaScript (Knockout.js), IronPython
-* **Domains:** Machine Learning, Web Development, Automation
-* **Tools:** VS Code, Cursor, OBS Studio (for content creation)
+* **AI & Data Engineering:** LangChain, RAG Pipelines, Vector DBs (Milvus/Chroma), Hugging Face, PyTorch, LLM Benchmarking
+* **Languages:** Python (Advanced), TypeScript, JavaScript, SQL
+* **Backend & Distributed Systems:** FastAPI, Node.js, Kafka, Redis, Microservices
+* **Cloud & DevOps:** AWS, Cloudflare Workers, Docker, Kubernetes, Terraform, CI/CD pipelines
+* **Tools:** Cursor, Neovim/VS Code, Linux/Unix environments
 
 ---
 
@@ -32,10 +36,8 @@ Visit my portfolio website: **[https://chirag127.github.io/chirag127](https://ch
 This repository includes an optimized `assets/` directory with:
 - **Favicon** (SVG & ICO formats)
 - **Profile photo placeholder** (ready to replace with your photo)
-- **Project screenshots** (3 placeholder images)
+- **Project screenshots** (optimized for web performance)
 - **Social media icons** (GitHub, LinkedIn, Email, Web)
-
-All images are optimized for web performance using SVG format for fast loading and scalability.
 
 📖 See [assets/README.md](assets/README.md) for details on usage and optimization.
 
@@ -72,6 +74,3 @@ python -m http.server 8000
 
 # Option 2: Using Node.js (if you have npx)
 npx serve
-
-# Option 3: Using PHP
-php -S localhost:8000
