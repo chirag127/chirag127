@@ -16,7 +16,7 @@ I am a **Software Engineering Specialist** based in **Bhubaneswar**, specializin
 
 ## 🌐 Portfolio & Links
 
-Visit my portfolio to see my detailed engineering work: **[https://Chirag127.in](https:// chirag127.in)**
+Visit my portfolio to see my detailed engineering work: https://Chirag127.in
 Connect with me on LinkedIn: **[linkedin.com/in/chirag127](https://linkedin.com/in/chirag127)**
 
 ---
