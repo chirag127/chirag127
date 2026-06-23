@@ -2,6 +2,8 @@
 
 I am a **Software Engineering Specialist** based in **Bhubaneswar**, specializing in AI-driven systems, LLM evaluations, and highly scalable distributed architectures. I am passionate about understanding model behavior, identifying edge cases, and building rigorous evaluation pipelines for state-of-the-art coding models.
 
+I build [**oriz.in**](https://oriz.in) — a family of free, ad-free web tools, APIs, and content sites. Org: [**@oriz-org**](https://github.com/oriz-org) (77+ repos).
+
 - 🔭 **I’m currently working on:** Architecting multi-agent workflows (NexusAI) and building robust benchmarking suites for LLM code-generation capabilities.
 - 🌱 **I’m currently learning:** Advanced techniques in model alignment, agentic orchestration (LangGraph), and high-performance vector retrieval.
 - 👯 **I’m looking to collaborate on:** Open-source AI benchmarking tools, distributed data curation pipelines, and complex systems architecture.
@@ -10,6 +12,7 @@ I am a **Software Engineering Specialist** based in **Bhubaneswar**, specializin
   - **NexusAI:** An agentic AI platform orchestrating autonomous LLM agents to solve complex coding tasks using LangGraph and Kubernetes.
   - **Crawl4AI:** A distributed web crawler utilizing Redis task queues to curate high-quality real-world datasets for LLM training and RAG ingestion.
   - **Oriz:** A production-grade platform routing dynamic user inputs across 10+ state-of-the-art LLM providers for behavioral analysis and cross-model benchmarking.
+    *(Source: [github.com/oriz-org](https://github.com/oriz-org) · Live: [oriz.in](https://oriz.in))*
 - ⚡ **Interests:** AI System Design, Edge Cases in Machine Learning, Open-Source Intelligence, and automating the un-automatable.
 
 ---
