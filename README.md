@@ -10,7 +10,7 @@ I ship products: web apps, public APIs, browser extensions, mobile apps, VS Code
 - **Agent tooling.** Reusable Claude Code skills, MCP servers, and reusable CI workflows that make AI coding agents more useful end-to-end. Everything's Dagger-portable — same pipeline runs locally, on GH Actions, GitLab, and Codeberg.
 - **Browser + VS Code extensions.** Small, focused tools that take the friction out of common workflows — bookmarks, secrets, clickbait, rewriting.
 
-📫 **[chirag127.in](https://chirag127.in)** · **[linkedin.com/in/chirag127](https://linkedin.com/in/chirag127)** · **[@singhal127](https://twitter.com/singhal127)**
+📫 **[chirag@oriz.in](mailto:chirag@oriz.in)** · **[chirag127.in](https://chirag127.in)** · **[linkedin.com/in/chirag127](https://linkedin.com/in/chirag127)** · **[@singhal127](https://twitter.com/singhal127)**
 
 ---
 
