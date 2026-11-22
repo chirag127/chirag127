@@ -1,0 +1,302 @@
+# ReviewSensei setup version: 5
+name: ReviewSensei review
+run-name: "ReviewSensei ${{ github.event_name == 'pull_request' && format('PR #{0}', github.event.pull_request.number) || github.event_name == 'pull_request_review_comment' && format('PR #{0} inline comment ({1})', github.event.pull_request.number, github.event.comment.user.type == 'Bot' && 'bot skipped' || format('@{0}', github.actor)) || github.event_name == 'issue_comment' && (github.event.issue.pull_request && format('PR #{0} comment ({1})', github.event.issue.number, github.event.comment.user.type == 'Bot' && 'bot skipped' || format('@{0}', github.actor)) || format('issue #{0} comment (skipped)', github.event.issue.number)) || inputs.pull_request_number && format('PR #{0} manual', inputs.pull_request_number) || 'manual' }}"
+
+# Configuration lives in .reviewsensei.yml at the repository root of the
+# trusted policy commit (the repository default branch) that the reusable
+# workflow freezes. This caller reads no repository variables: the only two
+# product overrides are REVIEWSENSEI_PROVIDER (inference.backend) and
+# REVIEWSENSEI_MODEL (inference.model), and the reusable workflow maps them,
+# once, from configuration.
+#
+# The installer and this caller follow the operator-managed v5 git tag. Moving
+# that tag is the public setup-v5 release action, so the reusable workflow,
+# its exact package install, and every policy decision arrive without editing
+# this file.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Review the selected pull request
+        required: true
+        default: review
+        type: choice
+        options: [review]
+      review_remaining:
+        description: Continue exact retained partial coverage with one bounded window
+        required: false
+        default: false
+        type: boolean
+      pull_request_number:
+        description: Pull request number to review
+        required: true
+      head_repository:
+        description: Optional owner/repo slug for fork review
+        required: false
+      source_kind:
+        description: Source kind for manual dispatch (issue or inline)
+        required: false
+      source_comment_id:
+        description: Source comment ID for manual reply
+        required: false
+      source_updated_at:
+        description: Timestamp of source comment
+        required: false
+      root_comment_id:
+        description: Root comment ID for manual reply thread
+        required: false
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+# Read-only plus OIDC. The reusable workflow needs no write scope from this
+# repository - every publication is authorized by the broker - and it can
+# never exceed what this caller grants. Whether anything is published is
+# github.writes in .reviewsensei.yml, not a permission.
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+  id-token: write
+
+jobs:
+  resolve-trigger:
+    # Event shape only: which events may start a run, and which commenters may
+    # address @reviewsensei or @sensei. Nothing here depends on configuration.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' &&
+      github.event.action == 'created' &&
+      github.event.issue.pull_request &&
+      (contains(github.event.comment.body, '@reviewsensei') || contains(github.event.comment.body, '@sensei')) &&
+      (github.event.comment.author_association == 'OWNER' ||
+      github.event.comment.author_association == 'MEMBER' ||
+      github.event.comment.author_association == 'COLLABORATOR') &&
+      github.event.comment.user.type != 'Bot') ||
+      (github.event_name == 'pull_request_review_comment' &&
+      github.event.action == 'created' &&
+      (contains(github.event.comment.body, '@reviewsensei') || contains(github.event.comment.body, '@sensei')) &&
+      (github.event.comment.author_association == 'OWNER' ||
+      github.event.comment.author_association == 'MEMBER' ||
+      github.event.comment.author_association == 'COLLABORATOR') &&
+      github.event.comment.user.type != 'Bot')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    outputs:
+      operation: ${{ steps.resolve.outputs.operation }}
+      head_sha: ${{ steps.resolve.outputs.head_sha }}
+      head_ref: ${{ steps.resolve.outputs.head_ref }}
+      base_ref: ${{ steps.resolve.outputs.base_ref }}
+      base_sha: ${{ steps.resolve.outputs.base_sha }}
+      pull_request_number: ${{ steps.resolve.outputs.pull_request_number }}
+    steps:
+      - name: Check out trusted trigger resolver
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Resolve pull-request trigger metadata
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          RECOVER_PUBLICATION: ${{ inputs.recover_publication }}
+          REPOSITORY: ${{ github.repository }}
+          PULL_REQUEST: ${{ github.event_name == 'workflow_dispatch' && inputs.pull_request_number || github.event_name == 'issue_comment' && github.event.issue.number || github.event.pull_request.number }}
+          PULL_REQUEST_URL: ${{ github.event.comment.pull_request_url }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          PULL_REQUEST_JSON: ${{ github.event_name == 'pull_request' && toJson(github.event.pull_request) || '' }}
+        run: |
+          set -euo pipefail
+          PULL_REQUEST="${PULL_REQUEST:-}"
+          PULL_REQUEST_URL="${PULL_REQUEST_URL:-}"
+          COMMENT_BODY="${COMMENT_BODY:-}"
+          if [[ -z "${PULL_REQUEST}" && "${PULL_REQUEST_URL}" =~ /pulls/([1-9][0-9]*)$ ]]; then
+            PULL_REQUEST="${BASH_REMATCH[1]}"
+          fi
+          if [[ ! "${PULL_REQUEST}" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::pull request number is unavailable"
+            exit 1
+          fi
+          if [[ ! "${REPOSITORY}" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ ]]; then
+            echo "::error::repository identity is invalid"
+            exit 1
+          fi
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && "${RECOVER_PUBLICATION:-false}" != "true" ]]; then
+            # Routing only. Live PR/base/head are authenticated by review-run.
+            printf 'operation=review\npull_request_number=%s\nbase_ref=%s\nhead_ref=HEAD\n' "$PULL_REQUEST" "$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ "$EVENT_NAME" == "issue_comment" ]]; then
+            # Select review intent from the event only; review-run authenticates
+            # the live comment, actor, requested commit and PR before inference.
+            intent=$(python - <<'PYROUTE'
+          import os, re
+          body = os.environ.get("COMMENT_BODY", "")
+          pattern = r"\A@(?:(?ai:reviewsensei)|sensei)[ \t]+(?:(?ai:re(?:[ \t]|-)?scan)|(?ai:review)[ \t]+(?ai:remaining))(?:[ \t]+(?ai:commit)[ \t]+[a-fA-F0-9]{7,40})?[ \t\r\n]*\Z"
+          print("review" if len(body.encode()) <= 4096 and re.fullmatch(pattern, body) else "")
+          PYROUTE
+            )
+            if [[ "$intent" == "review" ]]; then
+              printf 'operation=review\npull_request_number=%s\nbase_ref=%s\nhead_ref=HEAD\n' "$PULL_REQUEST" "$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          pull_json="$RUNNER_TEMP/review-sensei-pull.json"
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            if [[ -z "${PULL_REQUEST_JSON}" ]]; then
+              echo "::error::pull request payload is unavailable"
+              exit 1
+            fi
+            printf '%s' "$PULL_REQUEST_JSON" > "$pull_json"
+          else
+            gh api --method GET "repos/${REPOSITORY}/pulls/${PULL_REQUEST}" > "$pull_json"
+          fi
+          resolver="src/review_sensei/hosting/github/trigger.py"
+          if [[ -f "$resolver" ]]; then
+            PYTHONPATH=src python "$resolver" \
+              --event "$EVENT_NAME" \
+              --comment-body "$COMMENT_BODY" \
+              --pull-json "$pull_json"
+            exit 0
+          fi
+          python - "$pull_json" "$EVENT_NAME" "$COMMENT_BODY" <<'PY'
+          import json
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          sha_full = re.compile(r"^[a-f0-9]{40}$")
+          sha_prefix = re.compile(r"^[a-f0-9]{7,39}$")
+          ref = re.compile(r"^[A-Za-z0-9._/-]+$")
+          rescan = re.compile(r"\A(?:@sensei|(?ai:@reviewsensei))[ \t]+(?i:re(?:[ \t]|-)?scan)(?:[ \t]+(?ai:commit)[ \t]+(?P<commit>[a-fA-F0-9]{7,40}))?\s*\Z")
+          remaining = re.compile(r"\A(?:@sensei|(?ai:@reviewsensei))[ \t]+(?ai:review)[ \t]+(?ai:remaining)(?:[ \t]+(?ai:commit)[ \t]+(?P<commit>[a-fA-F0-9]{7,40}))?[ \t\r\n]*\Z")
+          pull = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          event_name = sys.argv[2]
+          comment_body = sys.argv[3] if len(sys.argv) > 3 else ""
+
+          def valid_ref(value):
+              return (
+                  isinstance(value, str)
+                  and ref.fullmatch(value) is not None
+                  and ".." not in value
+                  and not value.startswith("/")
+                  and not value.endswith("/")
+                  and "//" not in value
+              )
+
+          head = pull.get("head") if isinstance(pull.get("head"), dict) else {}
+          base = pull.get("base") if isinstance(pull.get("base"), dict) else {}
+          number = pull.get("number")
+          head_sha = head.get("sha")
+          head_ref = head.get("ref")
+          base_sha = base.get("sha")
+          base_ref = base.get("ref")
+          if (
+              isinstance(number, bool)
+              or not isinstance(number, int)
+              or number < 1
+              or not isinstance(head_sha, str)
+              or sha_full.fullmatch(head_sha) is None
+              or not valid_ref(head_ref)
+              or not isinstance(base_sha, str)
+              or sha_full.fullmatch(base_sha) is None
+              or not valid_ref(base_ref)
+          ):
+              print("::error::pull request identity metadata is invalid", file=sys.stderr)
+              raise SystemExit(1)
+
+          def choose_head(requested):
+              if not requested:
+                  return head_sha
+              requested = requested.casefold()
+              if sha_full.fullmatch(requested):
+                  if requested != head_sha:
+                      print(
+                          "::error::requested head sha does not match the pull request head",
+                          file=sys.stderr,
+                      )
+                      raise SystemExit(1)
+                  return requested
+              if head_sha.startswith(requested):
+                  return head_sha
+              print(
+                  "::error::requested commit does not match the pull request head",
+                  file=sys.stderr,
+              )
+              raise SystemExit(1)
+
+          operation = "review"
+          resolved_head = head_sha
+          if event_name == "pull_request" or event_name == "workflow_dispatch":
+              pass
+          elif event_name == "pull_request_review_comment":
+              operation = "reply"
+          elif event_name == "issue_comment":
+              match = rescan.fullmatch(comment_body)
+              if match is None:
+                  match = remaining.fullmatch(comment_body)
+              if match is not None:
+                  if len(comment_body.encode("utf-8")) > 4096:
+                      print("::error::explicit rescan comment exceeds 4096 UTF-8 bytes", file=sys.stderr)
+                      raise SystemExit(1)
+                  resolved_head = choose_head(match.group("commit"))
+              elif isinstance(comment_body, str) and len(comment_body.encode("utf-8")) <= 4096 and re.search(r"\A@(?:(?ai:reviewsensei)|sensei)[ \t]+(?:review[ \t]+(?:status|pause|continue|reenroll)|verify|(?:dismiss|defer|accept-risk)[ \t]+[a-f0-9]{16,64}[ \t]+--reason[ \t]+\S[^\r\n]*|(?:review[ \t]+)?accept-coverage-uncertainty[ \t]+--reason[ \t]+\S[^\r\n]*|i[ \t]+reviewed[ \t]+the[ \t]+media[ \t]+files[ \t]+and[ \t]+i[ \t]+approve|override[ \t]+(?:(?:rs-)?[a-f0-9]{6,64})(?:(?:[ \t]*,[ \t]*|[ \t]+)(?:rs-)?[a-f0-9]{6,64}){0,9}(?:[ \t]+acceptable[ \t]+risk)?|(?:(?:rs-)?[a-f0-9]{6,64})(?:(?:[ \t]*,[ \t]*|[ \t]+)(?:rs-)?[a-f0-9]{6,64}){0,9}[ \t]+(?:is|are)[ \t]+acceptable[ \t]+risk)[ \t\r\n]*\Z", comment_body, re.IGNORECASE):
+                  operation = "command"
+              else:
+                  operation = "reply"
+          else:
+              print("::error::unsupported event", file=sys.stderr)
+              raise SystemExit(1)
+          output = os.environ.get("GITHUB_OUTPUT")
+          if not output:
+              print("::error::GITHUB_OUTPUT is unavailable", file=sys.stderr)
+              raise SystemExit(1)
+          with open(output, "a", encoding="utf-8") as handle:
+              handle.write(f"operation={operation}\n")
+              handle.write(f"head_sha={resolved_head}\n")
+              handle.write(f"head_ref={head_ref}\n")
+              handle.write(f"base_ref={base_ref}\n")
+              handle.write(f"base_sha={base_sha}\n")
+              handle.write(f"pull_request_number={number}\n")
+          PY
+
+  review-or-reply:
+    # A skipped dependency skips this job, so the event guard above is the
+    # only guard: the reusable workflow decides eligibility, authorization,
+    # and whether anything is published.
+    needs: resolve-trigger
+    uses: malsabbagh/review-sensei/.github/workflows/review-sensei-run.yml@v5
+    with:
+      mode: ${{ github.event_name == 'pull_request' && 'automatic' || 'manual' }}
+      operation: ${{ needs.resolve-trigger.outputs.operation }}
+      repository: ${{ github.repository }}
+      repository_id: ${{ github.repository_id }}
+      pull_request_number: ${{ needs.resolve-trigger.outputs.pull_request_number || inputs.pull_request_number }}
+      base_ref: ${{ needs.resolve-trigger.outputs.base_ref }}
+      base_sha: ${{ needs.resolve-trigger.outputs.base_sha }}
+      head_ref: ${{ needs.resolve-trigger.outputs.head_ref }}
+      head_repository: ${{ inputs.head_repository || github.event.pull_request.head.repo.full_name || github.repository }}
+      head_sha: ${{ needs.resolve-trigger.outputs.head_sha }}
+      source_kind: ${{ inputs.source_kind || (github.event_name == 'pull_request_review_comment' && 'inline') || 'issue' }}
+      source_comment_id: ${{ inputs.source_comment_id || github.event.comment.id }}
+      source_updated_at: ${{ inputs.source_updated_at || github.event.comment.updated_at }}
+      root_comment_id: ${{ inputs.root_comment_id || github.event.comment.in_reply_to_id || github.event.comment.id }}
+      comment_body: ${{ github.event.comment.body || '' }}
+      comment_actor: ${{ github.event.comment.user.login || '' }}
+      comment_actor_type: ${{ github.event.comment.user.type || 'User' }}
+      comment_association: ${{ github.event.comment.author_association || '' }}
+    secrets:
+      OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

@@ -1,0 +1,58 @@
+# ReviewSensei setup version: 5
+# Configuration version. Leave this at 1.
+schema: 1
+
+# ReviewSensei caller HTTP attempts per authenticated Actions run.
+api_request_limit: 512
+
+# Backend and model used for review.
+inference:
+  # local-ollama, cloud-ollama, openrouter, or openai-compatible
+  backend: local-ollama
+  # Model slug for the selected backend
+  model: qwen3.5:4b
+
+# GitHub publication and conversation policy.
+github:
+  # Review eligible pull requests automatically
+  automatic_reviews: true
+  # Publish the validated result to GitHub
+  writes: false
+  # auto-approve (request changes or approve), blocking, or advisory
+  reviews: auto-approve
+  # Reply to authorized @reviewsensei (or @sensei) mentions
+  mentions: true
+  # disabled, proposals, or pull-requests
+  learning: disabled
+  # none or diagnostics
+  artifacts: none
+  # enabled uses the shared operation entry. disabled keeps the previous paths.
+  # The measured P1 profile does not fit 60 ordinary dispatches (#267).
+  operation_entry: enabled
+
+# Optional limits and endpoint overrides.
+advanced:
+  endpoint:
+    # Required to send requests to a custom API root
+    allow_custom_endpoint: false
+  context:
+    symbol_context:
+      # Follow symbols from the diff into trusted files
+      enabled: false
+      # Maximum files loaded for symbol lookup
+      max_files: 16
+      # Maximum bytes loaded for symbol lookup
+      max_bytes: 131072
+      # Maximum symbol-follow depth
+      max_depth: 1
+  egress:
+    # Permit non-loopback provider traffic
+    allow_data_egress: false
+  large_changes:
+    # Split a large diff into bounded review slices
+    orchestrate: false
+  resources:
+    # Provider request timeout in seconds
+    timeout_seconds: 900
+    # Maximum provider calls for one review
+    max_provider_calls: 8
